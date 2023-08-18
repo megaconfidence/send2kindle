@@ -1,14 +1,30 @@
-use std::str;
-use std::process::Command;
+use std::fs;
+use anyhow::Result;
+use headless_chrome::Browser;
 
-fn main() {
 
-    let hello = Command::new("sh")
-        .arg("-c")
-            .arg("cat /etc/issue")
-            .output()
-            .expect("failed to execute process");
+async fn send_email() {
+}
 
-    println!("{:?}", hello);
-    println!("{}", str::from_utf8(&hello.stdout).unwrap() );
+#[tokio::main]
+async fn main() -> Result<()>{
+    let browser = Browser::default()?;
+    let tab = browser.new_tab()?;
+
+    let wikidata = tab 
+        .navigate_to("http://example.com/")?
+        .wait_until_navigated()?
+        .print_to_pdf(None)?;
+
+
+
+    // println!("{:?}", wikidata);
+    // println!("{}", std::str::from_utf8(&wikidata).unwrap() );
+    fs::write("wiki.pdf", wikidata)?;
+    println!("PDF successfully created from internet web page.");
+
+    let res = send_email().await;  
+    println!("{:?}", res);
+
+    Ok(())
 }
