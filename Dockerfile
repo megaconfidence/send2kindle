@@ -9,7 +9,6 @@ COPY ./Cargo.lock ./Cargo.lock
 COPY ./Cargo.toml ./Cargo.toml
 
 # cache dependencies
-RUN cargo install htop
 RUN cargo build --release
 RUN rm src/*.rs
 
@@ -21,8 +20,7 @@ RUN rm ./target/release/deps/send2kindle*
 RUN cargo build --release
 
 # final base
-FROM debian:buster-slim
-
+FROM yukinying/chrome-headless-browser-stable
 # copy the build artifact from build stage
 COPY --from=build /send2kindle/target/release/send2kindle .
 
