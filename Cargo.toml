@@ -1,5 +1,5 @@
 [package]
-name = "send2kindle-api"
+name = "send2kindle"
 version = "0.1.0"
 edition = "2021"
 
