@@ -2,10 +2,18 @@
 This project is an OSS microservice written in Rust to send webpages to Kindle
 devices.
 
+> To use this service, it's important you add the sender email to receive
+> documents on your Kindle device. A guide on how to do this can be found
+> [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
+
+## Usage 
+
+
+
 ## Dependencies
 Project dependencies:
-* [Open SSL](https://github.com/openssl/openssl) i.e `libssl-dev` on Ubuntu or `openssl-devel` on Fedora
-* Headless [Chrome](https://www.google.com/chrome/)
+* [Open SSL](https://github.com/openssl/openssl)
+* [Headless Chrome](https://www.google.com/chrome/)
 
 
 ## Routes 
@@ -24,3 +32,12 @@ curl -X POST http://localhost:3000/send \
    -H "Content-Type: application/json" \
    -d '{"email": "your_id@kindle.com", "url": "http://example.com/"}'
 ```
+
+## Roadmap 
+This project is still in active development and would require a few new features
+to make is as accessible as possible:
+[] Webclient gui 
+[] Use of an OSS email server
+[] Automated Docker builds 
+[] Telemetry 
+
