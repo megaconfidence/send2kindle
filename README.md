@@ -36,8 +36,8 @@ curl -X POST http://localhost:3000/send \
 ## Roadmap 
 This project is still in active development and would require a few new features
 to make is as accessible as possible:
-[] Webclient gui 
-[] Use of an OSS email server
-[] Automated Docker builds 
-[] Telemetry 
+- [ ] Webclient gui 
+- [ ] Use of an OSS email server
+- [ ] Automated Docker builds 
+- [ ] Telemetry 
 
