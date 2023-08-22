@@ -12,7 +12,7 @@ pub async fn send_email(data:&Vec<u8>, email: &String, url: &String) -> Result<r
     let body = json!({
     "From": dotenv!("FROM_EMAIL"),
     "To": email,
-    "Subject": "New Wepage Order Just Got Delivered",
+    "Subject": "New Webpage Order Just Got Delivered!",
     "TextBody": "Hey there, here's your freshly baked webpage from send2kindle. Enjoy!",
     "Attachments": [
     {
