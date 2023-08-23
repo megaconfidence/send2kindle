@@ -1,5 +1,5 @@
-#[macro_use]
-extern crate dotenv_codegen;
+extern crate dotenv;
+use dotenv::dotenv;
 
 mod routes;
 mod services;
@@ -14,13 +14,16 @@ use std::net::SocketAddr;
 
 #[tokio::main]
 async fn main() {
+    dotenv().ok();
     tracing_subscriber::fmt::init();
+
+    let port = std::env::var("PORT").expect("provide $PORT").parse().unwrap();
 
     let app = Router::new()
         .route("/", get(|| async { "server online" }))
         .route("/send", post(send::send_handler));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], dotenv!("PORT").parse().unwrap()));
+    let addr = SocketAddr::from(([127, 0, 0, 1], port));
     tracing::info!("listening on {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
