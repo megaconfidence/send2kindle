@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  appsmith:
+    image: megaconfidence/send2kindle
+    container_name: send2kindle
+    ports:
+      - "3000:80"
+    env_file:
+      - .env

@@ -25,6 +25,6 @@ FROM yukinying/chrome-headless-browser-stable
 COPY --from=build /send2kindle/target/release/send2kindle .
 
 # set the startup command
-ENV PORT 3456
-EXPOSE 3456
+ENV PORT 80
+EXPOSE 80 
 CMD ["./send2kindle"]
