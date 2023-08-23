@@ -23,7 +23,7 @@ async fn main() {
         .route("/", get(|| async { "server online" }))
         .route("/send", post(send::send_handler));
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], port));
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("listening on {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())

@@ -1,8 +1,18 @@
 use anyhow::Result;
-use headless_chrome::Browser;
+use headless_chrome::{Browser, LaunchOptions};
 
 pub async fn gen_pdf(url: &String) -> Result<Vec<u8>> {
-    let browser = Browser::default()?;
+    let mut args = Vec::new();
+    args.push( std::ffi::OsStr::new("--no-sandbox"));
+    args.push( std::ffi::OsStr::new("--headless=new"));
+    args.push( std::ffi::OsStr::new("--disable-gpu"));
+
+    let browser = Browser::new(LaunchOptions {
+        args,
+        headless: false,
+        ..Default::default()
+    })?;
+
     let tab = browser.new_tab()?;
 
     let pdf_data = tab 
