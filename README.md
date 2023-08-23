@@ -7,8 +7,12 @@ devices.
 > [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
 
 ## Usage 
-
-
+```sh 
+git clone https://github.com/megaconfidence/send2kindle.git 
+cd send2kindle
+docker build . -t megaconfidence/send2kindle
+docker compose up -d
+```
 
 ## Dependencies
 Project dependencies:
@@ -21,14 +25,14 @@ Project dependencies:
 You can make a get request to the route route `/` to check the server status.
 
 ```sh 
-curl http://localhost:3000/
+curl http://localhost:3310/
 ```
 
 ### /send 
 To send a webpage to any kindle email address by making a post request to the 
 `/send` endpoint.
 ```sh 
-curl -X POST http://localhost:3000/send \
+curl -X POST http://localhost:3310/send \
    -H "Content-Type: application/json" \
    -d '{"email": "your_id@kindle.com", "url": "http://example.com/"}'
 ```
