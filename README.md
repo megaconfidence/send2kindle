@@ -6,21 +6,24 @@ devices.
 > documents on your Kindle device. A guide on how to do this can be found
 > [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
 
+## Dependencies
+Project dependencies:
+* [Open SSL](https://github.com/openssl/openssl)
+* [Headless Chrome](https://www.google.com/chrome/)
+> The Docker image contains all dependencies required to run this project.
+
 ## Usage 
+Instructions below show how to build and run a container for this project.
+Please note that you have to create a `.env` file using the variables in this
+[guide](./.env.example).
+
 ```sh 
 git clone https://github.com/megaconfidence/send2kindle.git 
 cd send2kindle
 docker build . -t megaconfidence/send2kindle
 docker compose up -d
 ```
-
-## Dependencies
-Project dependencies:
-* [Open SSL](https://github.com/openssl/openssl)
-* [Headless Chrome](https://www.google.com/chrome/)
-
-
-## Routes 
+## Endpoints
 ### / 
 You can make a get request to the route route `/` to check the server status.
 
@@ -31,10 +34,11 @@ curl http://localhost:3310/
 ### /send 
 To send a webpage to any kindle email address by making a post request to the 
 `/send` endpoint.
+
 ```sh 
 curl -X POST http://localhost:3310/send \
-   -H "Content-Type: application/json" \
-   -d '{"email": "your_id@kindle.com", "url": "http://example.com/"}'
+-H "Content-Type: application/json" \
+-d '{"email": "your_id@kindle.com", "url": "http://example.com/"}'
 ```
 
 ## Roadmap 
@@ -44,4 +48,5 @@ to make is as accessible as possible:
 - [ ] Use of an OSS email server
 - [ ] Automated Docker builds 
 - [ ] Telemetry 
-
+- [ ] Queue event system for document generation 
+- [ ] Server multi-threading
