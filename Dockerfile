@@ -28,25 +28,25 @@ RUN apt-get update && apt-get install -y libssl1.1 curl procps
 # install google-chrome
 RUN apt-get update && apt-get install -y \
   gnupg \
-	ca-certificates \
-  apt-transport-https \
-	--no-install-recommends && \
-	curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
-  apt-get update && \
-  apt --fix-broken install && \
-  apt-get install -y \
-	google-chrome-stable \
-	fontconfig \
+  chromium \
+  fontconfig \
   fonts-noto \
   fonts-kacst \
   fonts-symbola \
+  ttf-wqy-zenhei \
   fonts-thai-tlwg \
+  ca-certificates \
   fonts-wqy-zenhei \
   fonts-freefont-ttf \
+  apt-transport-https \
 	fonts-ipafont-gothic \
 	--no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
+
+
+# symlink google-chrome to chromium for arm64 compatibility
+RUN ln -s /usr/bin/chromium /usr/bin/google-chrome-stable
+RUN ln -s /usr/bin/chromium /usr/bin/google-chrome
 
 COPY --from=build /send2kindle/target/release/send2kindle .
 
