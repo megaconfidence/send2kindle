@@ -45,7 +45,7 @@ curl -X POST http://localhost:3310/send \
 This project is still in active development and would require a few new features
 to make is as accessible as possible:
 - [ ] Webclient gui 
-- [ ] Use of an OSS email server
+- [x] Use of SMTP client
 - [ ] Automated Docker builds 
 - [ ] Telemetry 
 - [ ] Queue event system for document generation 
