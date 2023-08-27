@@ -1,4 +1,5 @@
 # send2kindle
+
 This project is an OSS microservice written in Rust to send webpages to Kindle
 devices.
 
@@ -7,46 +8,58 @@ devices.
 > [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
 
 ## Dependencies
-Project dependencies:
-* [Open SSL](https://github.com/openssl/openssl)
-* [Headless Chrome](https://www.google.com/chrome/)
-> The Docker image contains all dependencies required to run this project.
 
-## Usage 
+Project dependencies:
+
+- [Open SSL](https://github.com/openssl/openssl)
+- [Headless Chrome](https://www.google.com/chrome/)
+  > The Docker image contains all dependencies required to run this project.
+
+## Usage
+
 Instructions below show how to build and run a container for this project.
 Please note that you have to create a `.env` file using the variables in this
 [guide](./.env.example).
 
-```sh 
-git clone https://github.com/megaconfidence/send2kindle.git 
+```sh
+git clone https://github.com/megaconfidence/send2kindle.git
 cd send2kindle
 docker build . -t megaconfidence/send2kindle
 docker compose up -d
 ```
+
 ## Endpoints
-### / 
+
+### /
+
 You can make a get request to the route route `/` to check the server status.
 
-```sh 
+```sh
 curl http://localhost:3310/
 ```
 
-### /send 
-To send a webpage to any kindle email address by making a post request to the 
+### /send
+
+To send a webpage to any kindle email address by making a post request to the
 `/send` endpoint.
 
-```sh 
+```sh
 curl -X POST http://localhost:3310/send \
 -H "Content-Type: application/json" \
 -d '{"email": "your_id@kindle.com", "url": "http://example.com/"}'
 ```
 
-## Roadmap 
+## Roadmap
+
 This project is still in active development and would require a few new features
 to make is as accessible as possible:
-- [ ] Webclient gui 
+
+- [ ] Webclient gui
+- [ ] Browser extension
 - [x] Use of SMTP client
-- [ ] Automated Docker builds 
-- [ ] Telemetry 
-- [ ] Queue event system for document generation 
+- [ ] Add controls for optimized page rendering
+- [ ] Add support for file download links
+- [ ] Automated Docker builds
+- [ ] Telemetry
+- [ ] Queue event system for document generation
 - [ ] Server multi-threading
