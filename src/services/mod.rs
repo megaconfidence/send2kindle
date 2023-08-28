@@ -1,2 +1,2 @@
-pub mod pdf;
 pub mod email;
+pub mod pdf;

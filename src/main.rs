@@ -4,20 +4,22 @@ use dotenv::dotenv;
 mod routes;
 mod services;
 
-use axum::{
-    Router,
-    routing::{get, post},
-};
 use crate::routes::send;
+use axum::{
+    routing::{get, post},
+    Router,
+};
 use std::net::SocketAddr;
-
 
 #[tokio::main]
 async fn main() {
     dotenv().ok();
     tracing_subscriber::fmt::init();
 
-    let port = std::env::var("PORT").expect("provide $PORT").parse().unwrap();
+    let port = std::env::var("PORT")
+        .expect("provide $PORT")
+        .parse()
+        .unwrap();
 
     let app = Router::new()
         .route("/", get(|| async { "server online" }))

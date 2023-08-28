@@ -2,17 +2,24 @@ extern crate slug;
 use slug::slugify;
 
 // use anyhow::Result;
-use mail_send::{SmtpClientBuilder};
 use mail_builder::MessageBuilder;
+use mail_send::SmtpClientBuilder;
 
-pub async fn send_email(data:&Vec<u8>, to_email: &String, url: &String) -> Result<(), mail_send::Error> {
-    let file_name = slugify(url)+".pdf";
+pub async fn send_email(
+    data: &Vec<u8>,
+    to_email: &String,
+    url: &String,
+) -> Result<(), mail_send::Error> {
+    let file_name = slugify(url) + ".pdf";
     let smtp_server = std::env::var("SMTP_SERVER").expect("provide $SMTP_SERVER");
     let smtp_username = std::env::var("SMTP_USERNAME").expect("provide $SMTP_USERNAME");
     let smtp_password = std::env::var("SMTP_PASSWORD").expect("provide $SMTP_PASSWORD");
     let smtp_from_email = std::env::var("SMTP_FROM_EMAIL").expect("provide $SMTP_FROM_EMAIL");
-    let smtp_port = std::env::var("SMTP_PORT").expect("provide $SMTP_PORT").parse().unwrap();
-    
+    let smtp_port = std::env::var("SMTP_PORT")
+        .expect("provide $SMTP_PORT")
+        .parse()
+        .unwrap();
+
     let message = MessageBuilder::new()
         .from(smtp_from_email)
         .to(to_email.to_string())
@@ -26,5 +33,6 @@ pub async fn send_email(data:&Vec<u8>, to_email: &String, url: &String) -> Resul
         .connect()
         .await
         .unwrap()
-        .send(message).await;
+        .send(message)
+        .await;
 }
