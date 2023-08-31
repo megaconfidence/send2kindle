@@ -59,7 +59,6 @@ to make is as accessible as possible:
 - [x] Use of SMTP client
 - [ ] Add controls for optimized page rendering
 - [ ] Add support for file download links
-- [ ] Automated Docker builds
+- [x] Automated Docker builds
+- [x] Non-blocking background job for rendering and emailing
 - [ ] Telemetry
-- [ ] Queue event system for document generation
-- [ ] Server multi-threading
