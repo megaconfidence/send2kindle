@@ -7,13 +7,16 @@ devices.
 > documents on your Kindle device. A guide on how to do this can be found
 > [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
 
+https://github.com/megaconfidence/send2kindle/assets/17744578/eed784f5-d99e-41b2-9aa5-f9a2fc78bfb6
+
+
 ## Dependencies
+> The Docker image contains all dependencies required to run this project.
 
 Project dependencies:
 
 - [Open SSL](https://github.com/openssl/openssl)
 - [Headless Chrome](https://www.google.com/chrome/)
-  > The Docker image contains all dependencies required to run this project.
 
 ## Usage
 
