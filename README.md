@@ -10,6 +10,10 @@ devices.
 https://github.com/megaconfidence/send2kindle/assets/17744578/eed784f5-d99e-41b2-9aa5-f9a2fc78bfb6
 
 
+https://github.com/megaconfidence/send2kindle/assets/17744578/c1c8c806-018d-4622-a496-23301ee5b446
+
+
+
 ## Dependencies
 > The Docker image contains all dependencies required to run this project.
 
