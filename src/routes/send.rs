@@ -15,11 +15,16 @@ pub struct Payload {
 pub async fn send_handler(Json(payload): Json<Payload>) -> (StatusCode, String) {
     match payload.validate() {
         Ok(_) => {
-            tokio::spawn(async move {
-                let pdf = services::pdf::gen_pdf(&payload.url).await;
-                let _res =
-                    services::email::send_email(&pdf.unwrap(), &payload.email, &payload.url).await;
-            });
+            // tokio::spawn(async move {
+            let pdf = match services::pdf::gen_pdf(&payload.url).await {
+                Ok(v) => v,
+                Err(err) => {
+                    eprintln!("{}", err);
+                    Vec::new()
+                }
+            };
+            let _res = services::email::send_email(&pdf, &payload.email, &payload.url).await;
+            // });
 
             (StatusCode::OK, "pdf sent".to_string())
         }
