@@ -33,7 +33,6 @@ RUN apt-get update && apt-get install -y \
   fonts-noto \
   fonts-kacst \
   fonts-symbola \
-  fonts-emojione \
   ttf-wqy-zenhei \
   fonts-thai-tlwg \
   ca-certificates \
