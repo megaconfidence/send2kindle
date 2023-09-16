@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y \
   fonts-freefont-ttf \
   apt-transport-https \
 	fonts-ipafont-gothic \
+  fonts-noto-color-emoji \
 	--no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 

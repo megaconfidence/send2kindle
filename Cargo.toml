@@ -15,7 +15,8 @@ tracing = "0.1.37"
 mail-send = "0.4.0"
 mail-builder = "0.3.0"
 serde_json = "1.0.105"
-headless_chrome = "1.0.5"
 tracing-subscriber = "0.3.17"
 tokio = { version = "1", features = ["full"] }
 validator = { version = "0.16.1", features = ["derive"] }
+chromiumoxide = { git = "https://github.com/mattsse/chromiumoxide", features = ["tokio-runtime"], default-features = false, branch = "main"}
+futures = "0.3.28"

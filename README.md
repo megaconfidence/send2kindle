@@ -57,7 +57,8 @@ to make is as accessible as possible:
 - [ ] Webclient gui
 - [ ] Browser extension
 - [x] Use of SMTP client
-- [ ] Add controls for optimized page rendering
+- [x] Add controls for optimized page rendering
+- [ ] Pdf compression for large webpages
 - [ ] Add support for file download links
 - [x] Automated Docker builds
 - [x] Non-blocking background job for rendering and emailing
