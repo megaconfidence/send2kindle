@@ -15,9 +15,6 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
     let image_js = include_str!("./browser/image.js");
     let scroll_js = include_str!("./browser/scroll.js");
 
-    // let (mut browser, mut handler) =
-    //     Browser::launch(BrowserConfig::builder().no_sandbox().with_head().build()?).await?;
-    //
     let (mut browser, mut handler) = Browser::launch(
         BrowserConfig::builder()
             .arg("--no-sandbox")
