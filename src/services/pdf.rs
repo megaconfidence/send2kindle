@@ -40,10 +40,10 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
 
     let job_id = nanoid!();
     let file_name = format!("webpage_{}_.pdf", job_id);
-    let pdf_path = Path::new(&file_name);
+    let file_path = Path::new(&file_name);
 
-    page.save_pdf(pdf_options, pdf_path).await?;
-    let pdf = send2kindle::compress_pdf(pdf_path);
+    page.save_pdf(pdf_options, file_path).await?;
+    let pdf = send2kindle::compress_pdf(file_path);
     send2kindle::clean_files(&job_id)?;
 
     browser.close().await?;

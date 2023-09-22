@@ -8,6 +8,7 @@ devices.
 > [here](https://www.amazon.com/gp/help/customer/display.html?nodeId=GX9XLEVV8G4DB28H).
 
 ## Dependencies
+
 > The Docker image contains all dependencies required to run this project.
 
 Project dependencies:
@@ -58,8 +59,8 @@ to make is as accessible as possible:
 - [ ] Browser extension
 - [x] Use of SMTP client
 - [x] Add controls for optimized page rendering
-- [ ] Pdf compression for large webpages
+- [x] Pdf compression for large webpages
 - [ ] Add support for file download links
 - [x] Automated Docker builds
 - [x] Non-blocking background job for rendering and emailing
-- [ ] Telemetry
+- [ ] Logging
