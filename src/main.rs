@@ -7,6 +7,7 @@ mod services;
 use crate::routes::send;
 use axum::{routing::post, Router};
 use std::net::SocketAddr;
+use tower_http::cors::CorsLayer;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 
 #[tokio::main]
@@ -23,12 +24,14 @@ async fn main() {
 
     let app = Router::new()
         .nest_service("/", ServeDir::new("public"))
-        .route("/send", post(send::send_handler));
+        .route("/send", post(send::send_handler))
+        .layer(CorsLayer::permissive())
+        .layer(TraceLayer::new_for_http());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("listening on {}", addr);
     axum::Server::bind(&addr)
-        .serve(app.layer(TraceLayer::new_for_http()).into_make_service())
+        .serve(app.into_make_service())
         .await
         .unwrap();
 }
