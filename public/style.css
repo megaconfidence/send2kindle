@@ -1,0 +1,42 @@
+.hide {
+  display: none !important;
+}
+
+form.send-form {
+  display: table;
+  margin: 0 auto;
+}
+
+div.send-form {
+  display: table-row;
+}
+
+label,
+input {
+  display: table-cell;
+  margin-top: 10px;
+}
+
+label {
+  padding-right: 10px;
+}
+
+input[type="submit"],
+.info-button {
+  padding: 3px 15px;
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 5px;
+  font-size: 1.1rem;
+}
+
+.info {
+  width: 50vw;
+  padding: 20px;
+  margin: 10px auto;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px dotted #a6a6b3;
+}

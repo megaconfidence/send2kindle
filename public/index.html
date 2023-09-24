@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>send2kindle</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="send-form">
+      <div class="send-form">
+        <label for="url">URL: </label>
+        <input type="text" name="url" id="url" required />
+      </div>
+      <div class="send-form">
+        <label for="email">Kindle email: </label>
+        <input type="email" name="email" id="email" required />
+      </div>
+      <div class="send-form">
+        <label for="remember-email">Remember email: </label>
+        <input
+          type="checkbox"
+          name="remember-email"
+          id="remember-email"
+          checked
+        />
+      </div>
+      <div class="send-form">
+        <input type="submit" value="Send" />
+      </div>
+    </form>
+
+    <div class="info hide">
+      <p class="info-text"></p>
+      <button class="info-button"></button>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -52,6 +52,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/chromium /usr/bin/google-chrome-stable
 RUN ln -s /usr/bin/chromium /usr/bin/google-chrome
 
+COPY ./public/ ./public/
 COPY --from=build /send2kindle/target/release/send2kindle .
 
 # set the startup command
