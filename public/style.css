@@ -17,6 +17,9 @@
 .home {
   width: 40%;
 }
+details {
+  margin-top: 10px;
+}
 button,
 summary,
 input[type="submit"] {
@@ -45,12 +48,11 @@ input[type="submit"] {
   height: auto;
   border-left: 2px solid var(--dark-one);
 }
-.home h2 {
+h2 {
   font-weight: normal;
 }
 form.send-form {
   display: table;
-  margin: 0 auto;
 }
 div.send-form {
   display: table-row;
@@ -120,7 +122,7 @@ input[type="email"] {
   }
   .divider {
     width: 90%;
-    margin: 60px auto 40px auto;
+    margin: 30px auto 0px auto;
     border-bottom: 2px solid var(--dark-one);
   }
   .home,
