@@ -1,42 +1,130 @@
+:root {
+  --primary-color: #0a998c;
+  --primary-lite: #dff1f0;
+  --dark-one: #d0d0d0;
+  --dark-two: #eee;
+}
+.page {
+  gap: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10vh;
+  flex-direction: row;
+  justify-content: center;
+  font-family: Roboto, sans-serif !important;
+}
+.app,
+.home {
+  width: 40%;
+}
+button,
+summary,
+input[type="submit"] {
+  cursor: pointer;
+}
+.player {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 56.25%;
+}
+.player iframe {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+}
 .hide {
   display: none !important;
 }
-
+.divider {
+  height: auto;
+  border-left: 2px solid var(--dark-one);
+}
+.home h2 {
+  font-weight: normal;
+}
 form.send-form {
   display: table;
   margin: 0 auto;
 }
-
 div.send-form {
   display: table-row;
 }
-
-label,
-input {
+.send-form label,
+.send-form input {
   display: table-cell;
   margin-top: 10px;
 }
-
 label {
   padding-right: 10px;
 }
-
-input[type="submit"],
-.info-button {
-  padding: 3px 15px;
+*:focus {
+  outline: none;
 }
-
-input[type="text"],
+a:focus,
+input:focus,
+button:focus {
+  outline: var(--primary-color) solid 1px;
+}
+input[type="submit"],
+button {
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 10px 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  background-color: var(--primary-lite);
+  border: 0.5px solid var(--primary-color);
+}
+input[type="checkbox"] {
+  accent-color: var(--primary-color);
+}
+input[type="url"],
 input[type="email"] {
   padding: 5px;
   font-size: 1.1rem;
+  border-radius: 3px;
+  border: 2px solid var(--dark-one);
 }
-
 .info {
-  width: 50vw;
   padding: 20px;
   margin: 10px auto;
   text-align: center;
-  border-radius: 5px;
-  border: 1px dotted #a6a6b3;
+  border-radius: 3px;
+  background-color: var(--dark-two);
+}
+@media screen and (max-width: 800px) {
+  form.send-form,
+  div.send-form {
+    display: block;
+  }
+  .send-form label,
+  .send-form input {
+    display: inline-block;
+    width: calc(100% - 15px);
+  }
+  .send-form input[type="submit"] {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .page {
+    padding: 10px;
+    flex-direction: column;
+  }
+  .divider {
+    width: 90%;
+    margin: 60px auto 40px auto;
+    border-bottom: 2px solid var(--dark-one);
+  }
+  .home,
+  .app {
+    width: 100%;
+  }
 }
