@@ -1,11 +1,23 @@
+let sendEndpoint = "/send";
+const browser = window.browser || window.chrome;
+
 const form = document.querySelector("form");
+const info = document.querySelector(".info");
 const infoText = document.querySelector(".info-text");
 const infoButton = document.querySelector(".info-button");
-const info = document.querySelector(".info");
 
 init();
 function init() {
   form.elements["email"].value = localStorage.getItem("email");
+  // check if app is in extension mode
+  if (browser) {
+    document.querySelector("body").style.width = "300px";
+    document.querySelector(".home").classList.add("hide");
+    document.querySelector(".divider").classList.add("hide");
+    document.querySelector(".app h2 em").textContent = "Send2Kindle⚡";
+    sendEndpoint = browser.runtime.getManifest().homepage_url + "send";
+    console.log({ sendEndpoint });
+  }
 }
 
 form.addEventListener("submit", async (e) => {
@@ -15,8 +27,8 @@ form.addEventListener("submit", async (e) => {
 
   const url = form.elements["url"].value;
   const email = form.elements["email"].value;
-  const isRemeberEmail = form.elements["remember-email"].checked;
-  shouldRememberEmail(isRemeberEmail, email);
+  const shouldRemeberEmail = form.elements["remember-email"].checked;
+  shouldRememberEmail(shouldRemeberEmail, email);
 
   const payload = { url, email };
   const res = await makeApiCall(payload);
@@ -30,8 +42,8 @@ infoButton.addEventListener("click", () => {
   init();
 });
 
-function shouldRememberEmail(isRemember, email) {
-  if (isRemember) {
+function shouldRememberEmail(shouldRemember, email) {
+  if (shouldRemember) {
     localStorage.setItem("email", email);
   } else {
     localStorage.removeItem("email");
@@ -39,16 +51,18 @@ function shouldRememberEmail(isRemember, email) {
 }
 
 async function makeApiCall(payload) {
-  const response = await fetch("/send", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const message = (await response.json()).message;
-  const status = response.status;
-
-  return { message, status };
+  try {
+    const response = await fetch(sendEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const message = (await response.json()).message;
+    const status = response.status;
+    return { message, status };
+  } catch (e) {
+    return { message: e.message, status: 400 };
+  }
 }
