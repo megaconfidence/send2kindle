@@ -60,7 +60,7 @@ This project is still in active development and would require a few new features
 to improve accessibility:
 
 - [x] Webclient gui
-- [x] Browser extension
+- [ ] Browser extension
 - [x] Use of SMTP client
 - [x] Add controls for optimized page rendering
 - [x] Pdf compression for large webpages

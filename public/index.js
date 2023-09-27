@@ -15,8 +15,12 @@ function init() {
     document.querySelector(".home").classList.add("hide");
     document.querySelector(".divider").classList.add("hide");
     document.querySelector(".app h2 em").textContent = "Send2Kindle⚡";
+
+    // auto-fill window address
+    browser.tabs.query({ currentWindow: true, active: true }, (tabs) => {
+      form.elements["url"].value = tabs[0].url;
+    });
     sendEndpoint = browser.runtime.getManifest().homepage_url + "send";
-    console.log({ sendEndpoint });
   }
 }
 
