@@ -16,6 +16,7 @@ A production version of this service can be found at [https://send2kindle.confid
 
 Project dependencies:
 
+- [Rust](https://www.rust-lang.org/tools/install)
 - [Open SSL](https://github.com/openssl/openssl)
 - [Headless Chrome](https://www.google.com/chrome/)
 - [Ghostscript](https://ghostscript.com/docs/9.54.0/Install.htm)
