@@ -19,11 +19,11 @@
       window.innerWidth > document.documentElement.clientWidth;
     if (hasScrollBar) {
       scroll(resolve);
-      //auto stop after 30s
+      //auto stop after 15s
       setTimeout(() => {
         clearTimeout(tid);
         resolve();
-      }, 30000);
+      }, 15000);
     } else {
       resolve();
     }

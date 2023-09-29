@@ -20,6 +20,7 @@ pub async fn send_email(
         .parse()
         .unwrap();
 
+    tracing::info!("composing email");
     let message = MessageBuilder::new()
         .from(smtp_from_email)
         .to(to_email.to_string())
@@ -27,6 +28,7 @@ pub async fn send_email(
         .text_body("Hey there, here's your freshly baked webpage from send2kindle. Enjoy!")
         .attachment("application/pdf", file_name, data.to_owned());
 
+    tracing::info!("sending email");
     return SmtpClientBuilder::new(smtp_server, smtp_port)
         .implicit_tls(false)
         .credentials((smtp_username, smtp_password))

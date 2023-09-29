@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use tokio;
 use validator::Validate;
 
-#[derive(Deserialize, Validate)]
+#[derive(Deserialize, Validate, Debug)]
 pub struct Payload {
     #[validate(url)]
     pub url: String,
@@ -24,6 +24,7 @@ pub async fn send_handler(Json(payload): Json<Payload>) -> (StatusCode, Json<Res
 
     match payload.validate() {
         Ok(_) => {
+            tracing::info!("\n{:#?}", payload);
             tokio::spawn(async move {
                 let pdf = services::pdf::gen_pdf(&payload.url)
                     .await

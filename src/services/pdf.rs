@@ -6,11 +6,13 @@ use nanoid::nanoid;
 use std::path::Path;
 
 pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+    tracing::info!("launching browser");
     let (mut browser, mut handler) = Browser::launch(
         BrowserConfig::builder()
             .arg("--no-sandbox")
             .arg("--headless=new")
             .arg("--disable-gpu")
+            // .with_head()
             .build()?,
     )
     .await?;
@@ -21,8 +23,9 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
             }
         }
     });
-    let page = browser.new_page(url).await?;
 
+    tracing::info!("navigating to url");
+    let page = browser.new_page(url).await?;
     page.wait_for_navigation().await?;
 
     let image_js = include_str!("./browser/image.js");
@@ -35,6 +38,7 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
     let file_name = format!("webpage_{}_.pdf", job_id);
     let file_path = Path::new(&file_name);
 
+    tracing::info!("converting to pdf");
     let pdf_options = PrintToPdfParams {
         margin_top: Some(0.),
         margin_left: Some(0.),
@@ -43,13 +47,17 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
         print_background: Some(true),
         ..Default::default()
     };
-
     page.save_pdf(pdf_options, file_path).await?;
+
+    tracing::info!("compressing pdf");
     let pdf = send2kindle::compress_pdf(file_path);
     send2kindle::clean_files(&job_id)?;
 
+    tracing::info!("shuttiing down browser");
     browser.close().await?;
-    handle.await?;
+    browser.wait().await?;
+
+    handle.await?; //driver to handle all browser actions. Must be called last
 
     Ok(pdf)
 }
