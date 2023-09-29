@@ -1,5 +1,6 @@
-let sendEndpoint = "/send";
-const browser = window.browser || window.chrome;
+let apiBase = "";
+let apiPath = "/send";
+const browser = window?.browser || window?.chrome;
 
 const form = document.querySelector("form");
 const info = document.querySelector(".info");
@@ -10,7 +11,7 @@ init();
 function init() {
   form.elements["email"].value = localStorage.getItem("email");
   // check if app is in extension mode
-  if (browser) {
+  if (browser?.extension) {
     document.querySelector("body").style.width = "300px";
     document.querySelector(".home").classList.add("hide");
     document.querySelector(".divider").classList.add("hide");
@@ -20,7 +21,7 @@ function init() {
     browser.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       form.elements["url"].value = tabs[0].url;
     });
-    sendEndpoint = browser.runtime.getManifest().homepage_url + "send";
+    apiBase = "https://send2kindle.confidence.sh";
   }
 }
 
@@ -56,7 +57,7 @@ function shouldRememberEmail(shouldRemember, email) {
 
 async function makeApiCall(payload) {
   try {
-    const response = await fetch(sendEndpoint, {
+    const response = await fetch(apiBase + apiPath, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,6 +68,6 @@ async function makeApiCall(payload) {
     const status = response.status;
     return { message, status };
   } catch (e) {
-    return { message: e.message, status: 400 };
+    return { message: "⚠️ " + e.message, status: 400 };
   }
 }
