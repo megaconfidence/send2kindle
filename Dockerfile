@@ -5,15 +5,15 @@ RUN USER=root cargo new --bin send2kindle
 WORKDIR /send2kindle
 
 # copy over manifests
-COPY ./Cargo.lock ./Cargo.lock
-COPY ./Cargo.toml ./Cargo.toml
+COPY Cargo.lock .
+COPY Cargo.toml .
 
 # cache dependencies
 RUN cargo build --release
 RUN rm src/*.rs
 
 # copy source tree
-COPY ./src ./src
+COPY src src
 
 # build for release
 RUN rm ./target/release/deps/send2kindle*
@@ -26,7 +26,7 @@ FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y ghostscript
 
 # install utils. libss1.1 is required for libssl.so.1.1
-RUN apt-get update && apt-get install -y libssl1.1 curl procps 
+RUN apt-get update && apt-get install -y sudo libssl1.1 curl procps vim 
 
 # install google-chrome
 RUN apt-get update && apt-get install -y \
@@ -52,11 +52,18 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/chromium /usr/bin/google-chrome-stable
 RUN ln -s /usr/bin/chromium /usr/bin/google-chrome
 
-COPY ./public/ ./public/
+RUN groupadd -r app && useradd -r -g app app
+RUN echo "app:app" | chpasswd
+RUN usermod -aG sudo app
+RUN mkdir /home/app && chown -R app:app /home/app 
+WORKDIR /home/app
+
+COPY public public
 COPY --from=build /send2kindle/target/release/send2kindle .
 
 # set the startup command
 ENV PORT 3310
 EXPOSE 3310 
 
-CMD ["./send2kindle"]
+USER app
+CMD ["/home/app/send2kindle"]

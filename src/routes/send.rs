@@ -32,6 +32,8 @@ pub async fn send_handler(Json(payload): Json<Payload>) -> (StatusCode, Json<Res
                 services::email::send_email(&pdf, &payload.email, &payload.url)
                     .await
                     .expect("could not email pdf");
+
+                tracing::info!("completed job");
             });
             res.message = String::from("Success. Document is being sent!");
             (StatusCode::OK, Json(res))

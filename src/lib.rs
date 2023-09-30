@@ -36,7 +36,7 @@ pub fn clean_files(file_id: &String) -> Result<()> {
         let entry = entry?;
         if re.is_match(entry.path().to_str().unwrap()) {
             fs::remove_file(entry.path())?;
-            // println!("{}", entry.path().display());
+            tracing::info!("cleaning {}", entry.path().display());
         }
     }
     Ok(())

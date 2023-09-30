@@ -34,6 +34,13 @@ docker build . -t megaconfidence/send2kindle
 docker compose up -d
 ```
 
+```sh
+docker run --rm -it --name send2kindle -p 3310:3310 --env-file .env
+megaconfidence/send2kindle bash
+
+docker container exec -it send2kindle /bin/bash
+```
+
 ## Endpoints
 
 ### /
@@ -65,7 +72,6 @@ to improve accessibility:
 - [x] Use of SMTP client
 - [x] Add controls for optimized page rendering
 - [x] Pdf compression for large webpages
-- [ ] Add support for file download links
 - [x] Automated Docker builds
 - [x] Non-blocking background job for rendering and emailing
-- [ ] Logging/tracing
+- [x] Logging/tracing

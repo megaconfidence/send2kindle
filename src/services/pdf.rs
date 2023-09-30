@@ -16,6 +16,7 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
             .build()?,
     )
     .await?;
+
     let handle = tokio::spawn(async move {
         while let Some(h) = handler.next().await {
             if h.is_err() {
@@ -35,8 +36,8 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
     page.evaluate(image_js).await?;
 
     let job_id = nanoid!();
-    let file_name = format!("webpage_{}_.pdf", job_id);
-    let file_path = Path::new(&file_name);
+    let pdf_file_name = format!("webpage_{}_.pdf", job_id);
+    let pdf_file_path = Path::new(&pdf_file_name);
 
     tracing::info!("converting to pdf");
     let pdf_options = PrintToPdfParams {
@@ -47,10 +48,13 @@ pub async fn gen_pdf(url: &String) -> Result<Vec<u8>, Box<dyn std::error::Error>
         print_background: Some(true),
         ..Default::default()
     };
-    page.save_pdf(pdf_options, file_path).await?;
+
+    let pdf_data = page.pdf(pdf_options).await?;
+    std::fs::write(pdf_file_path, pdf_data)?;
+    page.close().await?;
 
     tracing::info!("compressing pdf");
-    let pdf = send2kindle::compress_pdf(file_path);
+    let pdf = send2kindle::compress_pdf(pdf_file_path);
     send2kindle::clean_files(&job_id)?;
 
     tracing::info!("shuttiing down browser");
