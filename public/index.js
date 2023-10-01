@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
   const payload = { url, email };
   const res = await makeApiCall(payload);
   infoText.textContent = res.message;
-  infoButton.textContent = res.status == 200 ? "Send Another" : "Fix Error";
+  infoButton.textContent = res.status == 200 ? "Send Another" : "Retry";
 });
 
 infoButton.addEventListener("click", () => {
