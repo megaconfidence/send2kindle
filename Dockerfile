@@ -22,11 +22,11 @@ RUN cargo build --release
 # final base
 FROM debian:bullseye-slim
 
-# install gs for pdf compression
-RUN apt-get update && apt-get install -y ghostscript
+# install utils 
+RUN apt-get update && apt-get install -y sudo curl procps vim 
 
-# install utils. libss1.1 is required for libssl.so.1.1
-RUN apt-get update && apt-get install -y sudo libssl1.1 curl procps vim 
+# dependencies. gs for compression, libss1.1 is required for libssl.so.1.1
+RUN apt-get update && apt-get install -y ghostscript libssl1.1 
 
 # install google-chrome
 RUN apt-get update && apt-get install -y \

@@ -1,5 +1,6 @@
 use crate::services;
 use axum::{http::StatusCode, Json};
+use axum_client_ip::InsecureClientIp;
 use serde::{Deserialize, Serialize};
 use tokio;
 use validator::Validate;
@@ -17,7 +18,10 @@ pub struct ResponseMsg {
     pub message: String,
 }
 
-pub async fn send_handler(Json(payload): Json<Payload>) -> (StatusCode, Json<ResponseMsg>) {
+pub async fn send_handler(
+    insecure_ip: InsecureClientIp,
+    Json(payload): Json<Payload>,
+) -> (StatusCode, Json<ResponseMsg>) {
     let mut res = ResponseMsg {
         message: String::from(""),
     };
@@ -29,9 +33,14 @@ pub async fn send_handler(Json(payload): Json<Payload>) -> (StatusCode, Json<Res
                 let pdf = services::pdf::gen_pdf(&payload.url)
                     .await
                     .expect("could not convert url to pdf");
+
                 services::email::send_email(&pdf, &payload.email, &payload.url)
                     .await
                     .expect("could not email pdf");
+
+                services::analytics::log_analytics(insecure_ip)
+                    .await
+                    .expect("could not log analytics");
 
                 tracing::info!("completed job");
             });

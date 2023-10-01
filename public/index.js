@@ -1,5 +1,4 @@
-let apiBase = "";
-let apiPath = "/send";
+let api = "/send";
 const browser = window?.browser || window?.chrome;
 
 const form = document.querySelector("form");
@@ -10,8 +9,12 @@ const infoButton = document.querySelector(".info-button");
 init();
 function init() {
   form.elements["email"].value = localStorage.getItem("email");
-  // check if app is in extension mode
+  // check if app is in browser extension mode
   if (browser?.extension) {
+    // use remote api
+    api = "https://send2kindle.confidence.sh/send";
+
+    // collaps ui
     document.querySelector("body").style.width = "300px";
     document.querySelector(".home").classList.add("hide");
     document.querySelector(".divider").classList.add("hide");
@@ -21,7 +24,6 @@ function init() {
     browser.tabs.query({ currentWindow: true, active: true }, (tabs) => {
       form.elements["url"].value = tabs[0].url;
     });
-    apiBase = "https://send2kindle.confidence.sh";
   }
 }
 
@@ -57,7 +59,7 @@ function shouldRememberEmail(shouldRemember, email) {
 
 async function makeApiCall(payload) {
   try {
-    const response = await fetch(apiBase + apiPath, {
+    const response = await fetch(api, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
