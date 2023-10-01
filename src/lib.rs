@@ -35,8 +35,8 @@ pub fn clean_files(file_id: &String) -> Result<()> {
     for entry in WalkDir::new(".") {
         let entry = entry?;
         if re.is_match(entry.path().to_str().unwrap()) {
-            fs::remove_file(entry.path())?;
             tracing::info!("cleaning {}", entry.path().display());
+            fs::remove_file(entry.path())?;
         }
     }
     Ok(())
