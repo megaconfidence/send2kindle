@@ -17,6 +17,18 @@
 .home {
   width: 40%;
 }
+.extension {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  justify-content: start;
+}
+.extension a {
+  margin-right: 10px;
+}
+.extension img {
+  height: 37px;
+}
 details {
   margin-top: 10px;
 }
