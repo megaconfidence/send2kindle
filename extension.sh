@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf extension
+rm -rf extension extension.zip
 cp -r public extension 
 cd extension
  
