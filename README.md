@@ -4,7 +4,20 @@ This project is an OSS service written in Rust to send web content such new
 articles and blogs to your Kindle device
 devices.
 
-A production version of this service can be found at [https://send2kindle.confidence.sh/](https://send2kindle.confidence.sh/).
+<a href="" target="_blank">
+  <img src="./public/images/chrome.webp" style="height:50px;" />
+</a>
+<a
+  href="https://addons.mozilla.org/en-US/firefox/addon/send2kindle/"
+  target="_blank"
+>
+  <img src="./public/images/firefox.webp" style="height:50px;" />
+</a>
+</br>
+</br>
+
+Project home page [https://send2kindle.confidence.sh/](https://send2kindle.confidence.sh/)
+
 
 > To use this service, it's important you add the sender email to receive
 > documents on your Kindle device. A guide on how to do this can be found
@@ -34,11 +47,10 @@ docker build . -t megaconfidence/send2kindle
 docker compose up -d
 ```
 
+Run with `docker run`
 ```sh
-docker run --rm -it --name send2kindle -p 3310:3310 --env-file .env
-megaconfidence/send2kindle bash
-
-docker container exec -it send2kindle /bin/bash
+docker run --rm -it --name send2kindle -p 3310:3310 --env-file .env megaconfidence/send2kindle
+docker stop send2kindle
 ```
 
 ## Endpoints
