@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#NOTE: if you are on macOS, update to bash v4 brew install bash
+#NOTE: if you are on macOS, update to bash v4 i.e brew install bash
 
 rm -rf extension extension.zip
 cp -r public extension 
