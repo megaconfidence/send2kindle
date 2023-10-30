@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+#NOTE: if you are on macOS, update to bash v4 brew install bash
 
 rm -rf extension extension.zip
 cp -r public extension 
@@ -16,7 +18,7 @@ declare -A scripts1=(
 declare -n scripts
 for scripts  in ${!scripts@}; do
   curl ${scripts[url]} -o ${scripts[file]}
-  sed -i "s|${scripts[url]}|${scripts[file]}|g" index.html
+  sed -i"" -e "s|${scripts[url]}|${scripts[file]}|g" index.html
 done
 
 zip -r extension.zip *
