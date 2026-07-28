@@ -1,3 +1,10 @@
+---
+
+THIS REPO HAS NOW MOVED TO https://github.com/megaconfidence/web2kindle
+
+---
+
+
 # send2kindle
 
 This project is an OSS service written in Rust to send web content such new
